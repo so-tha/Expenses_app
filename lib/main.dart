@@ -55,9 +55,14 @@ class Myhomepage extends StatelessWidget {
                             width: 2,
                           )
                         ),
-                        padding:EdgeInsets.all(10),
+                        padding:const EdgeInsets.all(10),
                         child: Text(
-                        tr.value.toString()
+                        tr.value.toString(),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Colors.purple,
+                        ),
                       ),
                     ),
                     Column(
