@@ -11,6 +11,10 @@ class ExpensesApp extends StatelessWidget {
 }
 
 class Myhomepage extends StatelessWidget {
+
+  final titleController = TextEditingController();
+  final valueController = TextEditingController();
+
   final _transactions = [
     Transaction(
       id: 't1',
@@ -29,7 +33,6 @@ class Myhomepage extends StatelessWidget {
         title: const Text('Despesas Pessoais'),
       ),
       body: Column(
-
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
@@ -95,11 +98,13 @@ class Myhomepage extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   TextField(
+                    controller: titleController,
                     decoration: InputDecoration(
-                      labelText: 'Título',
+                    labelText: 'Título',
                     ),
                   ),
                   TextField(
+                    controller: valueController,
                     decoration: InputDecoration(
                       labelText: 'Valor (R\$)'
                     ),
@@ -108,7 +113,10 @@ class Myhomepage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        print(titleController.text);
+                        print(valueController.text);
+                      },
                       style:TextButton.styleFrom(
                       backgroundColor: Colors.white,
                       foregroundColor: Colors.purple),
