@@ -1,6 +1,6 @@
 import 'package:despesas_pessoais/models/transaction.dart';
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
 main() => runApp(ExpensesApp());
 
 class ExpensesApp extends StatelessWidget {
@@ -29,7 +29,7 @@ class Myhomepage extends StatelessWidget {
         title: const Text('Despesas Pessoais'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
@@ -76,7 +76,7 @@ class Myhomepage extends StatelessWidget {
                           ),
                           ),
                         Text(
-                          tr.date.toString(),
+                          DateFormat('d MMM y').format(tr.date),
                           style: TextStyle(
                             color: Colors.grey,
                           ),
@@ -87,6 +87,37 @@ class Myhomepage extends StatelessWidget {
                 ),
               );
             }).toList(),
+          ),
+          Card(
+            elevation: 5,
+            child: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Column(
+                children: <Widget>[
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Título',
+                    ),
+                  ),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Valor (R\$)'
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                      onPressed: () {},
+                      style:TextButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.purple),
+                      child: Text('Nova Transação')),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           )
         ],
       ),
