@@ -1,39 +1,60 @@
 import 'package:flutter/material.dart';
 
-class Transactionform extends StatelessWidget {
+class TransactionForm extends StatelessWidget {
   final titleController = TextEditingController();
   final valueController = TextEditingController();
-  Transactionform({super.key});
+
+  final void Function(String, double) onSubmit;
+
+  TransactionForm(this.onSubmit, {Key? key}) : super(key: key);
+
+  _submitForm() {
+    final title = titleController.text;
+    final value = double.tryParse(valueController.text) ?? 0;
+
+    if (title.isEmpty || value <= 0) {
+      return;
+    }
+
+    onSubmit(title, value);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
       child: Padding(
-        padding: EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(10),
         child: Column(
-          children: <Widget>[
+          children: [
             TextField(
               controller: titleController,
-              decoration: InputDecoration(
+              onSubmitted: (_) => _submitForm(),
+              decoration: const InputDecoration(
                 labelText: 'Título',
               ),
             ),
             TextField(
               controller: valueController,
-              decoration: InputDecoration(labelText: 'Valor (R\$)'),
+              keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
+              onSubmitted: (_) => _submitForm(),
+              decoration: const InputDecoration(
+                labelText: 'Valor (R\$)',
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
-              children: [
+              children: <Widget>[
                 TextButton(
-                    onPressed: () {
-                      print(titleController.text);
-                      print(valueController.text);
-                    },
-                    style: TextButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        foregroundColor: Colors.purple),
-                    child: Text('Nova Transação')),
+                  child: const Text(
+                    'Nova Transação',
+                    style: TextStyle(
+                      color: Colors.purple,
+                    ),
+                  ),
+                  onPressed: _submitForm,
+                )
               ],
             ),
           ],
