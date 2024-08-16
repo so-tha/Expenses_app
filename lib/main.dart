@@ -3,13 +3,39 @@ import 'package:flutter/material.dart';
 import 'package:despesas_pessoais/models/transaction.dart';
 import 'package:despesas_pessoais/transaction_list.dart';
 import 'dart:math';
+
 main() => runApp(const ExpensesApp());
 
 class ExpensesApp extends StatelessWidget {
   const ExpensesApp({Key? key}) : super(key: key);
+  
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: MyHomePage());
+    final ThemeData tema = ThemeData();
+    return MaterialApp(
+      home: const MyHomePage(),
+      theme: tema.copyWith(
+        colorScheme: tema.colorScheme.copyWith(
+          primary: Colors.purple,
+          secondary: Colors.amber,
+        ),
+        textTheme: tema.textTheme.copyWith(
+          titleLarge: const TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        appBarTheme: const AppBarTheme(
+          titleTextStyle: TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -21,7 +47,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _transactions = [
+  final List<Transaction> _transactions = [
     Transaction(
       id: 't1',
       title: 'Novo Tênis de Corrida',
@@ -47,6 +73,8 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _transactions.add(newTransaction);
     });
+
+    Navigator.of(context).pop(); // Fecha o modal após adicionar uma transação
   }
 
   _openTransactionFormModal(BuildContext context) {
@@ -77,7 +105,13 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(
               child: Card(
                 color: Colors.blue,
-                child: Text('Gráfico'),
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    'Gráfico',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
                 elevation: 5,
               ),
             ),
@@ -93,4 +127,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
